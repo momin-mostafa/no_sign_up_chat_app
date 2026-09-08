@@ -39,6 +39,15 @@ class ChatProvider extends ChangeNotifier {
     await _repository.sendMessage(user: user, text: text.trim());
   }
 
+  Future<void> markMessagesAsRead(List<String> messageIds) async {
+    final user = _currentUser;
+    if (user == null || messageIds.isEmpty) return;
+    await _repository.markMessagesAsRead(
+      user: user,
+      messageIds: messageIds,
+    );
+  }
+
   @override
   void dispose() {
     leaveRoom();

@@ -32,6 +32,10 @@ abstract class ChatRepository {
   Stream<List<MessageItem>> watchMessages();
   Stream<List<PresenceInfo>> watchPresence();
   Future<void> sendMessage({required ChatUser user, required String text});
+  Future<void> markMessagesAsRead({
+    required ChatUser user,
+    required List<String> messageIds,
+  });
   Future<void> addSystemMessage(String text);
   Future<void> setPresence({required ChatUser user, required bool online});
   void startHeartbeat({
@@ -99,7 +103,24 @@ class FirestoreChatRepository implements ChatRepository {
       'senderEmail': user.email,
       'text': text,
       'createdAt': FieldValue.serverTimestamp(),
+      'readBy': [user.email],
     });
+  }
+
+  @override
+  Future<void> markMessagesAsRead({
+    required ChatUser user,
+    required List<String> messageIds,
+  }) async {
+    if (messageIds.isEmpty) return;
+    final batch = _firestore.batch();
+    for (final id in messageIds) {
+      final ref = _firestore.collection(_messagesCollection).doc(id);
+      batch.update(ref, {
+        'readBy': FieldValue.arrayUnion([user.email]),
+      });
+    }
+    await batch.commit();
   }
 
   @override

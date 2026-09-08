@@ -44,6 +44,7 @@ class ChatMessage extends MessageItem {
   final String senderEmail;
   final String text;
   final DateTime time;
+  final List<String> readBy;
 
   const ChatMessage({
     required this.id,
@@ -51,6 +52,7 @@ class ChatMessage extends MessageItem {
     required this.senderEmail,
     required this.text,
     required this.time,
+    this.readBy = const [],
   });
 
   factory ChatMessage.fromDocument(DocumentSnapshot doc) {
@@ -61,8 +63,14 @@ class ChatMessage extends MessageItem {
       senderEmail: data['senderEmail'] as String? ?? '',
       text: data['text'] as String? ?? '',
       time: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      readBy: (data['readBy'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
     );
   }
 
   bool isSentBy(String email) => senderEmail == email;
+
+  bool isUnreadBy(String email) => !readBy.contains(email);
 }

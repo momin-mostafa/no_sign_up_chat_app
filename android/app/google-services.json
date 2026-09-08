@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1041723691279",
+    "project_id": "no-sign-up-chat-app",
+    "storage_bucket": "no-sign-up-chat-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041723691279:android:8002723b40a053830fee7a",
+        "android_client_info": {
+          "package_name": "com.example.addiits.technology.practical.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIOFY52RwSPOOi39H1Kn9Qr7qM9HH5_to"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

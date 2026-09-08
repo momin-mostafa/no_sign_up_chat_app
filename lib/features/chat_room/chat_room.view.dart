@@ -88,6 +88,7 @@ class ChatRoomView extends StatelessWidget {
                 return MessageList(
                   items: snapshot.data!,
                   currentUserEmail: user?.email ?? '',
+                  onMarkRead: provider.markMessagesAsRead,
                 );
               },
             ),
