@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Member {
@@ -12,6 +13,13 @@ class Member {
     required this.online,
     required this.color,
   });
+}
+
+class ChatUser {
+  final String name;
+  final String email;
+
+  const ChatUser({required this.name, required this.email});
 }
 
 sealed class MessageItem {
@@ -31,15 +39,30 @@ class SystemItem extends MessageItem {
 }
 
 class ChatMessage extends MessageItem {
+  final String id;
   final String sender;
+  final String senderEmail;
   final String text;
-  final bool isMe;
   final DateTime time;
 
   const ChatMessage({
+    required this.id,
     required this.sender,
+    required this.senderEmail,
     required this.text,
-    required this.isMe,
     required this.time,
   });
+
+  factory ChatMessage.fromDocument(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return ChatMessage(
+      id: doc.id,
+      sender: data['sender'] as String? ?? 'Unknown',
+      senderEmail: data['senderEmail'] as String? ?? '',
+      text: data['text'] as String? ?? '',
+      time: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+    );
+  }
+
+  bool isSentBy(String email) => senderEmail == email;
 }

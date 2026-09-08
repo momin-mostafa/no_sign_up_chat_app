@@ -1,8 +1,37 @@
+import 'package:addiits_technology_practical_test/features/chat_room/chat_provider.dart';
 import 'package:addiits_technology_practical_test/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Composer extends StatelessWidget {
+class Composer extends StatefulWidget {
   const Composer({super.key});
+
+  @override
+  State<Composer> createState() => _ComposerState();
+}
+
+class _ComposerState extends State<Composer> {
+  final _controller = TextEditingController();
+  bool _sending = false;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _send() async {
+    final text = _controller.text.trim();
+    if (text.isEmpty || _sending) return;
+
+    setState(() => _sending = true);
+    try {
+      await context.read<ChatProvider>().sendMessage(text);
+      _controller.clear();
+    } finally {
+      if (mounted) setState(() => _sending = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +57,12 @@ class Composer extends StatelessWidget {
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 120),
               child: TextField(
+                controller: _controller,
                 maxLines: null,
                 keyboardType: TextInputType.multiline,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
+                onSubmitted: (_) => _send(),
+                decoration: const InputDecoration(
                   hintText: "Type a message…",
                 ),
               ),
@@ -46,7 +77,7 @@ class Composer extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: _sending ? null : _send,
               icon: const Icon(
                 Icons.arrow_upward,
                 size: 18,
