@@ -1,3 +1,5 @@
+import 'package:addiits_technology_practical_test/features/chat_room/chat_room.view.dart'
+    show ChatRoomView;
 import 'package:addiits_technology_practical_test/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +57,11 @@ class JoinView extends StatelessWidget {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ChatRoomView()),
+                  );
+                },
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [Text("Enter chat room")],

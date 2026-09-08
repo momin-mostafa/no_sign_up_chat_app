@@ -15,17 +15,42 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        appBarTheme: AppBarThemeData(
+          backgroundColor: ChatAppColors.white
+        ),
         colorScheme: .fromSeed(seedColor: ChatAppColors.indigo),
         scaffoldBackgroundColor: ChatAppColors.white,
-        useMaterial3: true,
+        // useMaterial3: true,
         inputDecorationTheme: InputDecorationThemeData(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 10,
+          ),
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24),
+            borderSide: BorderSide(
+              color: Theme.of(
+                context,
+              ).dividerColor.withValues(alpha: 0.3),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
+            borderSide: BorderSide(
+              color: Theme.of(
+                context,
+              ).dividerColor.withValues(alpha: 0.3),
+            ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ChatAppColors.indigo),
+            borderRadius: BorderRadius.circular(radius),
+            borderSide: const BorderSide(color: ChatAppColors.indigo),
           ),
-          prefixIconColor: ChatAppColors.grey,
+          filled: true,
+          fillColor: Theme.of(
+            context,
+          ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+          isDense: true,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
