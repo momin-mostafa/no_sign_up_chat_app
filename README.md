@@ -1,6 +1,7 @@
 # Addiits Technology Practical Test
 
-A real-time chat application built with Flutter, Firebase Firestore, and Provider for state management.
+A real-time chat application built with Flutter, Firebase Firestore, and Provider for state
+management.
 
 ## Features
 
@@ -96,12 +97,12 @@ lib/
 
 ## Tech Stack
 
-| Layer         | Technology           |
-|---------------|----------------------|
-| UI            | Flutter / Material   |
-| State         | Provider             |
-| Database      | Cloud Firestore      |
-| Auth          | Anonymous (Firebase) |
+| Layer    | Technology           |
+|----------|----------------------|
+| UI       | Flutter / Material   |
+| State    | Provider             |
+| Database | Cloud Firestore      |
+| Auth     | Anonymous (Firebase) |
 
 ## Running Tests
 
@@ -121,6 +122,16 @@ flutter build ios --release
 # Web
 flutter build web
 ```
+
+## Architectural short note
+
+It uses basic MVVM architecture. Feature first folder structure. Tried to keep it as simple as
+possible.
+
+## partial work done : 
+
+- features like push notification is not yet done. 
+- The read/unread message option is not properly working. 
 
 ## License
 
