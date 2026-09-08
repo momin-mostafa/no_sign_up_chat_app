@@ -7,4 +7,8 @@ class ChatAppColors {
   static const Color green = Color(0xFF22C55E);
   static const Color deepGreen = Color(0xFF16A34A);
   static const Color grey = Colors.grey;
+  static const Color black = Color(0xFF0A0A0A);
+  static const Color deepGrey = Colors.black54;
 }
+
+const double radius = 16;
